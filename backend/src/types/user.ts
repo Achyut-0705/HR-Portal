@@ -22,16 +22,6 @@ export const userSchema = z.object({
 
 export const userDBSchema = userSchema.extend({
   password: z.string().trim(),
-  userActivityHistory: z.object({
-    chatbotUpdateHistory: z.array(z.any()),
-    assistantDetailsUpdateHistory: z.array(z.any()),
-    chatSettingsUpdateHistory: z.array(z.any()),
-    confidenceScoreThresholdUpdateHistory: z.array(z.any()),
-    isCoPilotOnUpdateHistory: z.array(z.any()),
-    isModelSelectionOnUpdateHistory: z.array(z.any()),
-    feedbackSectionHistory: z.array(z.any()),
-    ApprovalSectionHistory: z.array(z.any()),
-  }),
 });
 
 export type TUserRole = z.infer<typeof userRoleSchema>;

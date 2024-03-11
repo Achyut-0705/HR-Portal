@@ -1,8 +1,8 @@
-import { ZodError } from "zod";
+import { ZodError } from 'zod';
 
-import { Request, Response, NextFunction } from "express";
-import Logger from "./logger";
-import ApiError from "../common/utils/ApiError";
+import { Request, Response, NextFunction } from 'express';
+import Logger from './logger';
+import ApiError from '../common/utils/ApiError';
 
 export const errorConverter = (
   err: any,
@@ -15,7 +15,7 @@ export const errorConverter = (
       statusCode: 400,
       error: err.format(),
       stack: err.stack,
-      isOperational: true,
+      isOperational: true
     });
     return;
   }
@@ -24,7 +24,7 @@ export const errorConverter = (
 
   if (!(error instanceof ApiError)) {
     const statusCode = error.statusCode ? error.statusCode : 500;
-    const message = error.message || "Something went wrong!";
+    const message = error.message || 'Something went wrong!';
     error = new ApiError(statusCode, message, false, err.stack);
   }
 
@@ -38,7 +38,7 @@ export const errorHandler = (
   _next: NextFunction
 ) => {
   let { statusCode, message, stack, error, isOperational, ...restParams } = err;
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = process.env.NODE_ENV === 'production';
   // if ( isProduction && !err.isOperational) {
   //   statusCode = 500
   //   message = 'Internal Server error'
@@ -51,7 +51,7 @@ export const errorHandler = (
     message,
     error,
     ...restParams,
-    ...(!isProduction && { stack: stack }),
+    ...(!isProduction && { stack: stack })
   };
 
   if (!isProduction) {
