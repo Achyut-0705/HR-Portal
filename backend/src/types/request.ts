@@ -1,5 +1,6 @@
 import { TUser, TUserRole, TUserStatus } from './user';
 import { JwtPayload } from 'jsonwebtoken';
+import { Request } from 'express';
 
 export interface IUserTokenPayload extends JwtPayload {
   username: string;
@@ -9,6 +10,6 @@ export interface IUserTokenPayload extends JwtPayload {
   status: TUserStatus;
 }
 export interface ExtendedRequest extends Request {
-  userAccessToken?: IUserTokenPayload;
-  user?: TUser | null;
+  userAccessToken: IUserTokenPayload;
+  user: TUser;
 }

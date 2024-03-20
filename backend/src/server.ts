@@ -17,6 +17,7 @@ config();
 
 const PORT = process.env.PORT;
 const origins = `${process.env.ALLOWED_ORIGINS}`.split(',');
+const HOST = process.env.HOST ?? 'http://[::1]';
 
 const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -86,7 +87,7 @@ process.on('unhandledRejection', unexpectedErrorHandler);
 if (PORT) {
   bootstrap().then(() => {
     server = app.listen(PORT, () => {
-      Logger.info(` [server] 🚀 @ http://[::1]:${PORT}`);
+      Logger.info(` [server] 🚀 @ ${HOST}:${PORT}`);
     });
   });
 } else {

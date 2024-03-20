@@ -128,6 +128,6 @@ export const singUp = async (req: Request, res: Response) => {
     }
   } catch (error) {
     Logger.error(`[Auth] 🚨 Error during user registration - ${error}`);
-    res.status(400).send('Something went wrong. Please try again.');
+    res.status(500).send('Something went wrong. Please try again.');
   }
 };

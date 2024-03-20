@@ -2,21 +2,7 @@ import User from '../schemas/user.schema';
 import { v4 as uuidv4 } from 'uuid';
 import { TUserCreationPayload, TUserRole, TUserStatus } from '../types/user';
 import Logger from '../middleware/logger';
-
-function parseMongoError(error: any) {
-  if (error.code === 11000) {
-    // Find the `dup key` part of the error message
-    const dupKeyPart = error.message.match(/dup key: { (.+): "(.+)" }/);
-
-    if (dupKeyPart && dupKeyPart.length === 3) {
-      // Extract the field and value causing the duplication
-      const field = dupKeyPart[1];
-      const value = dupKeyPart[2];
-      return { field, value };
-    }
-  }
-  return null;
-}
+import { parseMongoError } from '../common/utils/ErrorParser';
 
 export const getUser = (filter: any, projection?: any, options?: any) => {
   return User.findOne(filter, projection, options);
@@ -82,7 +68,7 @@ export const registerUser = async <
         return `${duplicate.field} with value ${duplicate.value} already exists.`;
       }
     } else {
-      return error;
+      throw error;
     }
   }
 };
