@@ -36,3 +36,43 @@ export const registerOrg = async ({ name }: { name: string }) => {
     }
   }
 };
+
+export const getOrganizationList = async (
+  filter: any,
+  { limit, skip, sort }: { limit: number; skip: number; sort: any },
+  projection?: any,
+  options?: any
+) => {
+  return Organization.find(filter, projection, options)
+    .limit(limit)
+    .skip(skip)
+    .sort(sort);
+};
+
+export const getOrganization = async (
+  filter: any,
+  projection?: any,
+  options?: any
+) => {
+  return Organization.findOne(filter, projection, options);
+};
+
+export const findOneOrganizationAndUpdate = (
+  filter: any,
+  update?: any,
+  options?: any
+) => {
+  return Organization.findOneAndUpdate(filter, update, options);
+};
+
+export const deleteOrganization = async (filter: any) => {
+  // const org = await Organization.deleteOne(filter);
+
+  // if (org.deletedCount === 0) {
+  //   throw new Error('Organization not found');
+  // }
+
+  // return org;
+
+  return Organization.findOneAndDelete(filter);
+};
